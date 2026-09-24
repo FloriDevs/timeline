@@ -1,75 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Timeline - by Flori and Joah</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timeline by Flori and Joah</title>
 </head>
-<script src="script.js"></script>
 <style>
-    /* CSS made with Gemini */
 body {
   margin: 0;
-  padding-bottom: 80px; /* Muss mindestens so hoch sein wie dein Footer */
+  padding-bottom: 100px; 
   font-family: sans-serif;
+  background-color: #f9f9f9;
 }
 
-.content {
-  padding: 20px;
-  min-height: 120vh; /* Nur zum Testen des Scrollens der Seite */
+
+.content-area {
+  max-width: 900px;
+  margin: 40px auto; 
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  min-height: 400px;
 }
 
-/* 1. Der Footer selbst: Bleibt dauerhaft unten */
+
+.mini-page {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.mini-page h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #333;
+}
+
+
+.page-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.page-text {
+  flex: 1; 
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+
+.page-image {
+  flex: 1;
+  max-width: 400px;
+}
+
+.page-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+
 .sticky-footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 70px; /* Feste Höhe für den Footer */
-  background-color: #222;
-  color: white;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-  z-index: 1000; /* Damit er immer über dem Inhalt liegt */
+  height: 80px;
+  background-color: #ffffff;
+  border-top: 1px solid #ddd;
+  z-index: 1000;
 }
 
-/* 2. Der Container für das horizontale Scrollen */
 .scroll-container {
   display: flex;
-  align-items: center;
-  gap: 15px; /* Abstand zwischen den Elementen */
+  align-items: flex-start;
   height: 100%;
-  padding: 0 15px;
-  
-  /* Das ist der wichtigste Teil für den horizontalen Scrollbalken: */
+  padding-left: 30px;
+  padding-right: 30px;
   overflow-x: auto;
   white-space: nowrap;
-  
-  /* Verhindert, dass Elemente gestaucht werden */
-  flex-wrap: nowrap; 
+  flex-wrap: nowrap;
 }
 
-/* Scrollbar optisch etwas anpassen (optional, funktioniert in modernen Browsern) */
 .scroll-container::-webkit-scrollbar {
-  height: 6px;
-}
-.scroll-container::-webkit-scrollbar-track {
-  background: #333;
+  height: 4px;
 }
 .scroll-container::-webkit-scrollbar-thumb {
-  background: #666;
-  border-radius: 3px;
+  background: #ccc;
+  border-radius: 2px;
 }
 
-/* 3. Die einzelnen Elemente im Footer */
-.scroll-item {
-  flex: 0 0 auto; /* Verhindert das Schrumpfen */
-  background-color: #444;
+.footer-btn {
+  flex: 0 0 auto;
   padding: 10px 20px;
-  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 0 0 6px 6px;
+  cursor: pointer;
   font-size: 14px;
+  margin-top: -1px;
+}
+
+.footer-btn:hover {
+  background-color: #0056b3;
+}
+
+.btn-1 { 
+  margin-right: 15px;
+  background-color: greenyellow;
+  color: black;
+ }
+.btn-1:hover {
+  background-color: green;
+}
+.btn-2 { margin-right: 40px; }
+
+
+
+@media (max-width: 768px) {
+  .page-body {
+    flex-direction: column;
+  }
+  .page-image {
+    max-width: 100%;
+  }
 }
 </style>
 <body>
+  <main id="content-display" class="content-area"></main> 
+
+
+
+
+
+  <footer class="sticky-footer">
+  <div class="scroll-container">
+    <button class="footer-btn btn-1" onclick="window.location.reload();">Welcome</button>
+    <button class="footer-btn btn-2" data-page="seite2">Placeholder text lol</button>
+
     
+    
+  </div>
+</footer>
+
+  
 </body>
 </html>
+
+
+<script>
+
+const pagesData = {
+  seite1: {
+    title: "Welcome to our timeline.",
+    text: "More text goes here.",
+    image: "data:image/png;base64,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" // Beispiel-Bild von Lorem Picsum
+  }
+};
+
+
+function loadPage(pageKey) {
+  const data = pagesData[pageKey];
+  const displayArea = document.getElementById("content-display");
+
+  if (data) {
+    displayArea.innerHTML = `
+      <div class="mini-page">
+        <h1>${data.title}</h1>
+        <div class="page-body">
+          <div class="page-text">
+            <p>${data.text}</p>
+          </div>
+          <div class="page-image">
+            <img src="${data.image}" alt="Bild zu ${data.title}">
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}
+
+
+const buttons = document.querySelectorAll('.footer-btn');
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const pageId = button.getAttribute('data-page');
+    loadPage(pageId);
+  });
+});
+
+loadPage('seite1');
+</script>
